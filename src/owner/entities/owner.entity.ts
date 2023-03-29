@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Account } from "src/account/entities/account.entity";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Owner {
@@ -11,4 +12,7 @@ export class Owner {
 
   @Column()
   business: boolean;
+
+  @OneToMany(() => Account, (account) => account.owner)
+  accounts: Account[]
 }
