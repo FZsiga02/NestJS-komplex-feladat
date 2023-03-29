@@ -1,10 +1,10 @@
 /* eslint-disable prettier/prettier */
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Account } from './account.entity';
+import { Account } from './account/entities/account.entity';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { Owner } from './owner.entity';
+import { Owner } from './owner/entities/owner.entity';
 import { AccountModule } from './account/account.module';
 import { OwnerModule } from './owner/owner.module';
 
