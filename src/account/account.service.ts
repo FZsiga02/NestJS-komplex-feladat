@@ -1,11 +1,21 @@
+/* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
-import { CreateAccountDto } from './dto/create-account.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import CreateAccountDto from './dto/create-account.dto';
 import { UpdateAccountDto } from './dto/update-account.dto';
+import { Account } from './entities/account.entity';
 
 @Injectable()
 export class AccountService {
-  create(createAccountDto: CreateAccountDto) {
-    return 'This action adds a new account';
+  constructor(
+    @InjectRepository(Account)
+    private accountRepository: Repository<Account>
+  ) {}
+  async create(accountData: CreateAccountDto) {
+    const newAccount = await this.accountRepository.create(accountData);
+    await this.accountRepository.save(newAccount)
+    return newAccount;
   }
 
   findAll() {

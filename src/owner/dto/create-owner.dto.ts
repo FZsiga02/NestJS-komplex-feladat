@@ -2,7 +2,7 @@
 
 import { IsDefined } from "class-validator";
 
-export default class CreateOwner {
+export default class CreateOwnerDto {
 
   @IsDefined({message: 'A név megadása kötelező'})
   fullName: string;
