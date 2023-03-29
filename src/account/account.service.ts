@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Body, Delete, Get, HttpException, HttpStatus, Injectable, Param, Post } from '@nestjs/common';
+import { Body, Delete, Get, HttpException, HttpStatus, Injectable, Param, Patch, Post } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import CreateAccountDto from './dto/create-account.dto';
@@ -28,8 +28,9 @@ export class AccountService {
     throw new HttpException('Nem létezik számla ezzel az azonosítóval', HttpStatus.NOT_FOUND);
   }
 
-  update(id: number, updateAccountDto: UpdateAccountDto) {
-    return `This action updates a #${id} account`;
+  @Patch('/account/:id')
+  update(@Param('id') id: number, @Body() updateAccountDto: UpdateAccountDto) {
+    return this.accountRepository.update(+id, updateAccountDto);
   }
 
   @Delete('/account/:id')

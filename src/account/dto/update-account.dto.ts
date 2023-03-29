@@ -1,4 +1,14 @@
+/* eslint-disable prettier/prettier */
 import { PartialType } from '@nestjs/mapped-types';
-import { CreateAccountDto } from './create-account.dto';
+import { IsOptional } from 'class-validator';
+import CreateAccountDto from './create-account.dto';
 
-export class UpdateAccountDto extends PartialType(CreateAccountDto) {}
+export class UpdateAccountDto extends PartialType(CreateAccountDto) {
+
+  @IsOptional()
+  accountNumber: string;
+
+  @IsOptional()
+  balance: number;
+
+}
