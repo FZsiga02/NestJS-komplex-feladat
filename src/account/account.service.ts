@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import CreateAccountDto from './dto/create-account.dto';
@@ -18,12 +18,12 @@ export class AccountService {
     return newAccount;
   }
 
-  findAll() {
-    return `This action returns all account`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} account`;
+  async getById(id: number) {
+    const account = await this.accountRepository.findOne({where: { id }});
+    if (account) {
+      return account;
+    }
+    throw new HttpException('Nem létezik számla ezzel az azonosítóval', HttpStatus.NOT_FOUND);
   }
 
   update(id: number, updateAccountDto: UpdateAccountDto) {
