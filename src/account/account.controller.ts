@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { AccountService } from './account.service';
 import  CreateAccountDto  from './dto/create-account.dto';
+import { TransferDto } from './dto/transfer.dto';
 import { UpdateAccountDto } from './dto/update-account.dto';
 import { Account } from './entities/account.entity';
 
@@ -36,6 +37,11 @@ export class AccountController {
 
   @Delete('/:id')
   remove(@Param('id') id: number) {
-    return this.accountRepository.remove(Account[id])
+    //return this.accountRepository.remove(id)
+  }
+
+  @Post('/transfer/:sourceId/:targetId')
+  transfer(@Param('sourceId') sourceId: number, @Param('targetId') targetId: number, @Body() transferDto: TransferDto) {
+    return this.accountRepository.update(+sourceId, transferDto), this.accountRepository.update(+targetId, transferDto)
   }
 }
