@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import CreateOwnerDto from './dto/create-owner.dto';
@@ -18,12 +18,12 @@ export class OwnerService {
     return newOwner;
   }
 
-  findAll() {
-    return `This action returns all owner`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} owner`;
+  async getById(id: number) {
+    const owner = await this.ownerRepository.findOne({where: { id }});
+    if (owner) {
+      return owner;
+    }
+    throw new HttpException('Nem létezik tulajdonos ezzel az azonosítóval', HttpStatus.NOT_FOUND);
   }
 
   update(id: number, updateOwnerDto: UpdateOwnerDto) {
