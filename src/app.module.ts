@@ -5,6 +5,8 @@ import { Account } from './account.entity';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { Owner } from './owner.entity';
+import { AccountModule } from './account/account.module';
+import { OwnerModule } from './owner/owner.module';
 
 @Module({
   imports: [
@@ -20,6 +22,8 @@ import { Owner } from './owner.entity';
       ],
       synchronize: true,
     }),
+    AccountModule,
+    OwnerModule,
   ],
   controllers: [AppController],
   providers: [AppService],
