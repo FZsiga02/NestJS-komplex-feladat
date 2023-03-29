@@ -1,13 +1,14 @@
+/* eslint-disable prettier/prettier */
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
-export class Account {
+export class Owner {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  accountNumber: string;
+  fullName: string;
 
   @Column()
-  balance: number;
+  business: boolean;
 }
